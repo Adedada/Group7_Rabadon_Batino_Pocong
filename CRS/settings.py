@@ -84,8 +84,8 @@ DATABASES = {
         'USER': 'Group7',
         'PASSWORD': 'April62022',
         'HOST': 'it342-student.postgres.database.azure.com',
-        'PORT': '3306',
-        'OPTIONS': {"sslmode": "required"},
+        'PORT': '5432',
+        'OPTIONS': {"sslmode": "require"},
     }
 }
 
