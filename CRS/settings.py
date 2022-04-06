@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-tjnn7cpjj_a+(p(idii!321^q*rthl*)^3@t0x3=2x53l=q)s*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["jfrabadon-my-first-azure-deployed-app.azurewebsites.net"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'it342-student',
-        'USER': 'Group7',
+        'USER': 'Group7@it342-student',
         'PASSWORD': 'April62022',
         'HOST': 'it342-student.postgres.database.azure.com',
         'PORT': '5432',
