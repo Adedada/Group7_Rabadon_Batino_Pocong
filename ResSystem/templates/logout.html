@@ -1,0 +1,41 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Logged Out</h2>
+        <ol>
+          <li><a href="{% url 'ResSystem:home_view' %}">Home</a></li>
+          <li>Logged Out</li>
+        </ol>
+      </div>
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+ 
+
+    </div>
+  </section>
+  <!-- End Breadcrumbs -->
+  <br><br><br><br>
+  <br><br>
+  <br><br>
+
+  <section id="skills" class="skills">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>You Have Logged Out </h2>
+        <p>Hope to see you next time</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <br><br>
+  <br><br>
+  <br>
+{% endblock content %}

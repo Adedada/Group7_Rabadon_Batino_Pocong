@@ -1,0 +1,246 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+  
+        <h2><span style="font-weight:1000;">Welcome </span> {{ user.get_username }}</h2>
+    
+        <ol>
+          <li><a href="{% url 'ResSystem:home_view' %}">Home</a></li>
+          <li>Reservation</li>
+        </ol>
+      </div>
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    </div>
+  </section>
+  <!-- End Breadcrumbs -->
+
+  <table id="room" class="sample">
+    
+    <thead>
+        <tr>
+            <th>ROOM ID</th>
+            <th>STATUS</th>
+            <th>LOCATION</th>
+            <th>RESERVATION FEE</th>
+            <th>START TIME</th>
+            <th>END TIME</th>
+            <th>CLIENT</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>              
+        {% for room in room %}
+        <br>     
+        <center><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomCancelAll-{{room.client}}"  id="book">CANCEL ALL</button></center>  
+        <!-- Cancel All Modal -->
+        <div class="modal fade" id="roomCancelAll-{{room.client}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <form id="updateForm" method="post" >
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" name="client" value = {{ user.get_username }}>
+                  <input type="hidden" name="status" value = "VACANT">
+                  Cancel All Reservations ? 
+                  <div class = "row">
+                  </div>
+
+
+                </div>
+
+              
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" name = "roomCancelAll">Yes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                  
+              </form>
+              </div>
+            </div>
+        </div>                             
+        <tr>
+            <td>{{room.roomID}}</td>
+            <td>{{room.status}}</td>
+            <td>{{room.location}}</td>
+            <td>{{room.reservationfee}}</td>
+            <td>{{room.starttime}}</td>
+            <td>{{room.endtime}}</td>
+            <td>{{room.client}}</td>
+            
+            <td>
+              <!-- Button trigger modal -->                                        
+              {% if room.status == 'RESERVED' %}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomCancel-{{room.roomID}}"  id="cancel">CANCEL</button>
+              {% else %}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomBook-{{room.roomID}}"  id="book">BOOK</button>
+              {% endif %}
+                
+
+              </button>
+
+            </td>
+
+
+        </tr>
+        <!-- Update Modal  IS FUCKING UP THE OTHER MODALS-->
+        <div class="modal fade" id="roomBook-{{room.roomID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Book Room # {{room.roomID}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <form id="updateForm" method="post" >
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" name="roomID" value = {{room.roomID}}>
+
+                  <div class = "row">
+                    <div class =  "col-md-6">
+                        <label>Status</label>
+                    </div>
+                    <div class =  "col-md-6">
+                      <label>Reservation Fee</label>
+                    </div>
+                  </div>
+                  
+
+                  <div class = "row">
+                    <div class = "col-md-6">
+                      <div class = "col-md-6">
+                        <input type="text" value="{{room.status}}" name="status" readonly>
+                      </div>
+                    </div>
+                    <div class = "col-md-6">
+                      <input type="number" value="{{room.reservationfee}}" name="reservationfee" readonly>
+                    </div>
+                  </div>
+                
+
+                
+                <div class = "row">
+                  <div class =  "col-md-6">
+                      <label>Start Time</label>
+                  </div>
+                  <div class =  "col-md-6">
+                    <label>End Time </label>
+                  </div>
+                </div>
+
+                <div class = "row">
+                  <div class = "col-md-6">
+                    <input type="time" value="{{room.starttime}}" name="starttime" style="width: 200px;" readonly>
+                  </div>
+                  
+                  <div class = "col-md-6">
+                    <input type="time" value="{{room.endtime}}" name="endtime" style="width: 200px;" readonly>
+                  </div>
+                </div>
+              
+              <div class = "row">
+                <div class =  "col-md-6">
+                  <label>Client</label>
+                </div>
+                <div class =  "col-md-6">
+                  <label>Location</label>
+                </div>
+              </div>
+
+              <div class = "row">
+                <div class = "col-md-6">
+                  <div class = "col-md-6">
+                    <input type="text" value="{{ user.get_username }}" name="client" style="width: 200px;" readonly>
+                  </div>
+                </div>  
+
+                  <div class = "col-sm-6">
+                    <input type="text" style="width: 200px;"  value="{{room.location}}" name="location" readonly>
+                  </div>
+
+              </div>
+                </div>
+
+              
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" name = "roomBook">Yes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                  
+              </form>
+              </div>
+            </div>
+        </div>
+        </div>        
+
+        <!-- Cancel Modal -->
+        <div class="modal fade" id="roomCancel-{{room.roomID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are You Sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+              <form id="updateForm" method="post" >
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" name="roomID" value = {{room.roomID}}>
+                  Cancel Room # {{room.roomID}} Reservation? 
+                  <div class = "row">
+                  </div>
+        
+                      <input type="text" value="VACANT" name="status" hidden>
+                      <input type="text" value="None" name="client" hidden>
+
+                </div>
+
+              
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" name = "roomCancel">Yes</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                  
+              </form>
+              </div>
+            </div>
+        </div>        
+
+
+        
+
+        {% endfor %}
+        
+    </tbody>    
+    </table>
+    
+    <hr />
+  
+
+<!-- DataTables -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
+<script>
+  $(document).ready(function(){
+    
+    $('#room').DataTable();
+    $('#user').DataTable();
+    
+  });
+</script>
+
+
+
+
+    
+{% endblock content %}

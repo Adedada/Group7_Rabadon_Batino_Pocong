@@ -1,0 +1,331 @@
+
+{% extends 'basetemplate.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Dashboard</h2>
+        <ol>
+          <li><a href="{% url 'ResSystem:home_view' %}">Home</a></li>
+          <li>Room</li>
+        </ol>
+      </div>
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+ 
+
+    </div>
+  </section>
+  <!-- End Breadcrumbs -->
+
+<br>
+  <h2 style="text-align: center;">ROOM DATABASE</h2>
+    <table id="room" class="sample">
+    
+    <thead>
+        <tr>
+            <th>ROOM ID</th>
+            <th>STATUS</th>
+            <th>LOCATION</th>
+            <th>RESERVATION FEE</th>
+            <th>START TIME</th>
+            <th>END TIME</th>
+            <th>CLIENT</th>
+            <th>ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>              
+        {% for room in room %}                          
+        <tr>
+            <td>{{room.roomID}}</td>
+            <td>{{room.status}}</td>
+            <td>{{room.location}}</td>
+            <td>{{room.reservationfee}}</td>
+            <td>{{room.starttime}}</td>
+            <td>{{room.endtime}}</td>
+            <td>{{room.client}}</td>
+            
+            <td>
+              <!-- Button trigger modal -->                                        
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomUpdatee-{{room.roomID}}"><i class="bi bi-pencil"></i></button>
+              <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#roomDelete-{{room.roomID}}"><i class="bi bi-trash"></i></button>
+            </td>
+        </tr>
+        <!-- Update Modal  IS FUCKING UP THE OTHER MODALS-->
+        <div class="modal fade" id="roomUpdatee-{{room.roomID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Room # {{room.roomID}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <form id="updateForm" method="post" >
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" name="roomID" value = {{room.roomID}}>
+
+                  <div class = "row">
+                    <div class =  "col-md-6">
+                        <label>Status</label>
+                    </div>
+                    <div class =  "col-md-6">
+                      <label>Reservation Fee</label>
+                    </div>
+                  </div>
+                  
+
+                  <div class = "row">
+                    <div class = "col-md-6">
+                      <select name="status" id="cars" style="width: 200px;">
+                        <option value="{{room.status}}">{{room.status}}</option>
+                        <option value="VACANT">VACANT</option>
+                        <option value="RESERVED">RESERVED</option>
+                        <option value="UNDER MAINTENANCE">MAINTENANCE</option>
+                      </select>
+                    </div>
+                    <div class = "col-md-6">
+                      <input type="number" value="{{room.reservationfee}}" name="reservationfee">
+                    </div>
+                  </div>
+                
+
+                
+                <div class = "row">
+                  <div class =  "col-md-6">
+                      <label>Start Time</label>
+                  </div>
+                  <div class =  "col-md-6">
+                    <label>End Time </label>
+                  </div>
+                </div>
+
+                <div class = "row">
+                  <div class = "col-md-6">
+                    <input type="time" value="{{room.starttime}}" name="starttime" style="width: 200px;" >
+                  </div>
+                  
+                  <div class = "col-md-6">
+                    <input type="time" value="{{room.endtime}}" name="endtime" style="width: 200px;" >
+                  </div>
+                </div>
+              
+              <div class = "row">
+                <div class =  "col-md-6">
+                  <label>Client</label>
+                </div>
+                <div class =  "col-md-6">
+                  <label>Location</label>
+                </div>
+              </div>
+
+              <div class = "row">
+                <div class = "col-md-6">
+                  <select name="client" id="agent" style="width: 200px;" >
+                    <option value="{{room.client}}">{{room.client}}</option>
+                    <option value="None">None</option>
+                    <option value="Maintenance">Maintenance</option> 
+                    {% for agent in agent %}  
+                    <option value="{{agent.username}}">{{agent.username}}</option>
+                    {% endfor %}
+                  </select>
+                </div>  
+
+                  <div class = "col-sm-6">
+                    <input type="text" style="width: 200px;"  value="{{room.location}}" name="location">
+                  </div>
+
+              </div>
+                </div>
+
+              
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" name = "roomUpdate">Save changes</button>
+              </form>
+              </div>
+            </div>
+        </div>
+        </div>        
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="roomDelete-{{room.roomID}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Room # {{room.roomID}}?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <form id="updateForm" method="post" >
+                {% csrf_token %}
+                <div class="modal-body">
+                  <input type="hidden" name="roomID" value = {{room.roomID}}>
+                  <center>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                    <button type="submit" class="btn btn-primary" name = "roomDelete">YES</button>
+                  </center>
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+
+
+
+        {% endfor %}
+    </tbody>
+    </table>
+
+
+<hr>
+<br>
+<h2 style="text-align: center;">USER DATABASE</h2>
+<table id="user" class="sample">
+    
+  <thead>
+      <tr>
+          <th>USER ID</th>
+          <th>FIRSTNAME</th>
+          <th>LASTNAME</th>
+          <th>USERNAME</th>
+          <th>PHONE NUMBER</th>
+          <th>EMAIL</th>
+          <th>ACTIONS</th>
+      </tr>
+  </thead>
+  <tbody>              
+      {% for agent in agent %}                          
+      <tr>
+          <td>{{agent.agentID}}</td>
+          <td>{{agent.firstname}}</td>
+          <td>{{agent.lastname}}</td>
+          <td>{{agent.username}}</td>
+          <td>{{agent.phone_number}}</td>
+          <td>{{agent.email}}</td>
+          
+          <td>
+            <!-- Button trigger modal -->                                        
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agentUpdate-{{agent.agentID}}"><i class="bi bi-pencil"></i></button>
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#agentDelete-{{agent.agentID}}"><i class="bi bi-trash"></i></button>
+          </td>
+      </tr>
+      <!-- Update Modal -->
+      <div class="modal fade" id="agentUpdate-{{agent.agentID}}" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="DeleteModalLabel">Update User # {{agent.agentID}} </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteForm" method="post" >
+            {% csrf_token %} 
+            <div class="modal-body"> 
+              <input type="hidden" name="agentID" value = {{agent.agentID}}>   
+
+              <div class = "row">
+                <div class =  "col-md-6">
+                    <label>First Name</label>
+                </div>
+                <div class =  "col-md-6">
+                  <label>Last Name</label>
+                </div>
+              </div>
+
+              <div class = "row">
+                <div class = "col-md-6">
+                  <input type="text" value="{{agent.firstname}}" name="firstname" style="width: 200px;" >
+                </div>
+                
+                <div class = "col-md-6">
+                  <input type="text" value="{{agent.lastname}}" name="lastname" style="width: 200px;" >
+                </div>
+              </div>
+
+              <div class = "row">
+                <div class =  "col-md-6">
+                    <label>Phone Number</label>
+                </div>
+                <div class =  "col-md-6">
+                  <label>Email</label>
+                </div>
+              </div>
+
+              <div class = "row">
+                <div class = "col-md-6">
+                  <input type="text" value="{{agent.phone_number}}" name="phone_number" style="width: 200px;" >
+                </div>
+                
+                <div class = "col-md-6">
+                  <input type="text" value="{{agent.email}}" name="email" style="width: 200px;" >
+                </div>
+              </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="submit" name = "agentUpdate" class="btn btn-primary">Yes</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+        
+      <!-- Delete Modal -->
+      <div class="modal fade" id="agentDelete-{{agent.agentID}}" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="DeleteModalLabel">Are You Sure ?</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="deleteForm" method="post" >
+            {% csrf_token %} 
+            <div class="modal-body">                       
+              <input type="hidden" name="agentID" value = {{agent.agentID}}>
+              You Want To Delete User # {{agent.agentID}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="submit" name = "agentDelete" class="btn btn-primary">Yes</button>
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+
+
+
+      {% endfor %}
+  </tbody>
+  </table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>   
+
+
+<!-- DataTables -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
+<script>
+  $(document).ready(function(){
+    
+    $('#room').DataTable();
+    $('#user').DataTable();
+    
+  });
+</script>
+{% endblock content %}

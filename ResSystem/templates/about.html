@@ -1,0 +1,191 @@
+{% extends 'basetemplate.html' %}
+{% load static %}
+{% block content %}
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>About</h2>
+        <ol>
+          <li><a href="{% url 'ResSystem:home_view' %}">Home</a></li>
+          <li>About</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+  <!-- End Breadcrumbs -->
+
+  <!-- ======= About Us Section ======= -->
+  <br><br>
+  <section id="about-us" class="about-us">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row content">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h2>Welcome to 3<span>R</span></h2>
+          <h3>Where we strive to give you the best convinience and experience for your money</h3>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+          <p>
+            Here are 3R all our rooms are sanatized thoroughly by our professional cleaning staff after every use. 
+            We will provide you and your colleagues the following experiences:
+          </p>
+          <ul>
+            <li><i class="ri-check-double-line"></i> A quiet conference room for your important meetings</li>
+            <li><i class="ri-check-double-line"></i> An cool and calm environment to ensure productivity</li>
+            <li><i class="ri-check-double-line"></i> Up to date visualization technology for your dope presentations</li>
+          </ul>
+          <p class="fst-italic">
+            Contact us now and reserve your room today!
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- End About Us Section -->
+
+  <!-- ======= Our Team Section ======= -->
+  <section id="team" class="team section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Our <strong>Team</strong></h2>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up">
+            <div class="member-img">
+              <img src="{% static 'assets/img/team/batino.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Francos Batino</h4>
+              <span>Backend Developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src="{% static 'assets/img/team/pocong.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Ronald Pocong</h4>
+              <span>Frontend Developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="200">
+            <div class="member-img">
+              <img src="{% static 'assets/img/team/rabadon.png' %}" class="img-fluid" alt="">
+              <div class="social">
+                <a href=""><i class="bi bi-twitter"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Junemhel Rabadon</h4>
+              <span>Project Manager</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </section><!-- End Our Team Section -->
+
+  <!-- ======= Our Skills Section ======= -->
+  <section id="skills" class="skills">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Our <strong>Rooms</strong></h2>
+        <p>Our rooms have been rated by each and every customer and we've compiled them into this summary</p>
+      </div>
+
+      <div class="row skills-content">
+
+        <div class="col-lg-6" data-aos="fade-up">
+
+          <div class="progress">
+            <span class="skill">Cleanliness <i class="val">99.9%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="99.9" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">Customer Satisfaction <i class="val">90%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">Utilities <i class="val">85%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="progress">
+            <span class="skill">Efficiency<i class="val">96%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="96" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">Friendly Staff  <i class="val">90%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+          <div class="progress">
+            <span class="skill">Convinience <i class="val">95%</i></span>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- End Our Skills Section -->
+
+
+</main><!-- End #main -->
+{% endblock content %}

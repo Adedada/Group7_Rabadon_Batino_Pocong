@@ -1,0 +1,47 @@
+{
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "name": "bootstrap-darkmode",
+  "version": "0.9.1",
+  "description": "Stylesheet and Scripts for implementing dark mode with Bootstrap 4",
+  "main": "dist/theme.js",
+  "types": "dist/theme.d.ts",
+  "sideEffects": ["**/*.css", "**/*.scss"],
+  "scripts": {
+    "build": "ng-packagr -p package.json && sass -I node_modules --source-map src/scss/darktheme.scss:dist/css/darktheme.css --style compressed && cpx 'src/scss/**' dist/scss/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clashsoft/bootstrap-darkmode.git"
+  },
+  "keywords": [
+    "bootstrap",
+    "bootstrap-4",
+    "darkmode",
+    "darktheme"
+  ],
+  "author": "Adrian Kunz",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/clashsoft/bootstrap-darkmode/issues"
+  },
+  "homepage": "https://github.com/clashsoft/bootstrap-darkmode#readme",
+  "peerDependencies": {
+    "bootstrap": ">=4.6"
+  },
+  "devDependencies": {
+    "@angular/compiler": "^12.1.1",
+    "@angular/compiler-cli": "^12.1.1",
+    "@angular/core": "^12.1.1",
+    "bootstrap": "^4.6.0",
+    "cpx": "^1.5.0",
+    "ng-packagr": "^12.1.1",
+    "sass": "^1.35.2",
+    "typescript": "^4.3.5"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/public_api.ts"
+    }
+  }
+}
