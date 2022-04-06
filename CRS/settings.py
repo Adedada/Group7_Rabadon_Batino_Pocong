@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'CRS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'it342-student',
+        'NAME': 'postgres',
         'USER': 'Group7@it342-student',
         'PASSWORD': 'April62022',
         'HOST': 'it342-student.postgres.database.azure.com',
